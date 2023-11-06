@@ -6,7 +6,7 @@
 /*   By: mkhairal <mkhairal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 14:48:55 by mkhairal          #+#    #+#             */
-/*   Updated: 2023/11/06 10:31:22 by mkhairal         ###   ########.fr       */
+/*   Updated: 2023/11/06 16:30:16 by mkhairal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,12 @@ int main ()
     PhoneBook pb;
     std::string query;
 
-    pb.startup();
-    while (std::cin >> query)
+    while (true)
     {
+        pb.startup();
+        std::getline(std::cin, query, '\n');
+        if (std::cin.eof())
+            return (std::cout << std::endl, 1);
         if (!query.compare("ADD"))
             pb.add();
         else if (!query.compare("SEARCH"))
@@ -31,7 +34,6 @@ int main ()
             return (0);
         }
         else
-            std::cout << "PLEASE ENTER A VALID QUERY" << std::endl;
-        pb.startup();
+            std::cerr << "PLEASE ENTER A VALID QUERY" << std::endl;
     }
 }

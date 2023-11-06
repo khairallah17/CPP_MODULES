@@ -6,7 +6,7 @@
 /*   By: mkhairal <mkhairal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 00:15:18 by mkhairal          #+#    #+#             */
-/*   Updated: 2023/11/06 15:10:52 by mkhairal         ###   ########.fr       */
+/*   Updated: 2023/11/06 22:34:58 by mkhairal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,16 @@ std::string Contact::checkInput()
 {
     std::string input;
 
-    std::cin >> input;
-    std::cin.clear();
-    if (input.empty())
+    while (std::getline(std::cin, input, '\n'))
     {
-        std::cerr << "\033[31mVALUE CANNOT BE EMPTY\033[0m" << std::endl;
-        return (NULL);
+        std::cin.clear();
+        if (input.empty())
+            std::cerr << "\033[31mVALUE CANNOT BE EMPTY\033[0m" << std::endl;
+        else
+            return (input);
     }
+    if (input.empty())
+        exit(0);
     return (input);
 }
 
@@ -96,12 +99,17 @@ bool Contact::validContact(Contact &contact)
 
 void    Contact::contactInfo(Contact contact)
 {
+    if (!validContact(contact))
+    {
+        std::cerr << "\033[1m\033[31mNO CONTACT FOUND\033[0m" << std::endl;
+        return ;
+    }
     std::cout << std::endl;
     std::cout << "\033[1m\033[35m/******************* USER INFROMATION *******************/\033[0m" << std::endl;
-    std::cout << "FIRST NAME ==> " << contact.getDarkestSecret() << std::endl;
-    std::cout << "LAST NAME ==> " << contact.getDarkestSecret() << std::endl;
-    std::cout << "NICK NAME ==> " << contact.getDarkestSecret() << std::endl;
-    std::cout << "PHONE NUMBER ==> " << contact.getDarkestSecret() << std::endl;
+    std::cout << "FIRST NAME ==> " << contact.getFirstName() << std::endl;
+    std::cout << "LAST NAME ==> " << contact.getLastName() << std::endl;
+    std::cout << "NICK NAME ==> " << contact.getNickName() << std::endl;
+    std::cout << "PHONE NUMBER ==> " << contact.getPhoneNumber() << std::endl;
     std::cout << "DARKEST SECRET ==> " << contact.getDarkestSecret() << std::endl;
     std::cout << "\033[1m\033[35m/******************* END OF USER INFROMATION *******************/\033[0m" << std::endl;
     std::cout << std::endl;
@@ -110,7 +118,7 @@ void    Contact::contactInfo(Contact contact)
 void    Contact::init()
 {
     std::cout << "Enter the firstName ==> ";
-    this->_fName = (checkInput());
+    this->_fName = checkInput();
     std::cout << std::endl;
     std::cout << "Enter the lastName ==> ";
     this->_lName = (checkInput());
@@ -131,7 +139,7 @@ void    Contact::printData()
     if (this->getFirstName().empty() || this->getLastName().empty() || this->getNickName().empty())
         return ;
     std::cout << std::setw(10) << this->getIndex() << "|";
-    std::cout << std::setw(10) << ((this->getLastName().length() >= 10) ? this->getLastName().substr(0, 9) + "." : this->getLastName()) << "|";
     std::cout << std::setw(10) << ((this->getFirstName().length() >= 10) ? this->getFirstName().substr(0, 9) + "." : this->getFirstName()) << "|";
+    std::cout << std::setw(10) << ((this->getLastName().length() >= 10) ? this->getLastName().substr(0, 9) + "." : this->getLastName()) << "|";
     std::cout << std::setw(10) << ((this->getNickName().length() >= 10) ? this->getNickName().substr(0, 9) + "." : this->_nName) << std::endl;
 }

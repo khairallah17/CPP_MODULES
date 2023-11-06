@@ -6,11 +6,12 @@
 /*   By: mkhairal <mkhairal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 21:48:41 by mkhairal          #+#    #+#             */
-/*   Updated: 2023/10/28 23:58:39 by mkhairal         ###   ########.fr       */
+/*   Updated: 2023/11/06 16:10:41 by mkhairal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
+#include <cstring>
 
 void checkAndPrint(char *str)
 {

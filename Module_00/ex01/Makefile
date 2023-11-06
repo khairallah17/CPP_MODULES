@@ -6,12 +6,12 @@
 #    By: mkhairal <mkhairal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/05 14:52:26 by mkhairal          #+#    #+#              #
-#    Updated: 2023/11/06 15:12:13 by mkhairal         ###   ########.fr        #
+#    Updated: 2023/11/06 22:31:15 by mkhairal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = c++
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -std=c++98
 NAME = PhoneBook
 
 SRCS= Contact.cpp \
@@ -23,10 +23,10 @@ OBJS = $(SRCS:.cpp=.o)
 all : $(NAME) 
 
 $(NAME): $(OBJS)
-	$(CC) $(FLAGS) $(HEADERS) $(OBJS) -o $(NAME)
+	$(CC) $(FLAGS) $(OBJS) -o $(NAME)
 
 %.o : %.cpp Contact.hpp PhoneBook.hpp
-	$(CC) $(HEADERS) -c $< -o $@
+	$(CC) $(FLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(OBJS)
