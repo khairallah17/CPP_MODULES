@@ -56,7 +56,7 @@ void    PhoneBook::search()
 
     print();
     std::cout << "PLEASE ENTER AN INDEX TO SEARCH FOR ==> ";
-	while (!(std::cin >> index) || (index < 0 || index >= this->_currentIndex))
+	while (!(std::cin >> index) || (index < 0))
 	{
 		if (std::cin.eof())
 			exit(0);
