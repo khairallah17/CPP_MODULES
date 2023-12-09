@@ -23,7 +23,7 @@ Zombie::Zombie()
 
 Zombie::~Zombie()
 {
-    std::cout << PURPLE << "Destructor has been called" << RESET << std::endl;
+    std::cout << PURPLE << "Destructor has been called on: " << this->getName() << RESET << std::endl;
 }
 
 void    Zombie::announce(void)
@@ -36,7 +36,7 @@ void    Zombie::setName(std::string name)
     this->name = name;
 }
 
-std::string Zombie::getName(void)
+std::string Zombie::getName(void) const
 {
     return (this->name);
 }

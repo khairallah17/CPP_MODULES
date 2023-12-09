@@ -21,8 +21,11 @@ OBJS = $(SRCS:.cpp=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJS) HumanA.hpp HumanB.hpp Weapon.hpp
+$(NAME): $(OBJS)
 	$(CC) $(CPPFLAGS) $(OBJS) -o $(NAME)
+
+%.o:%.cpp HumanA.hpp HumanB.hpp Weapon.hpp
+	$(CC) $(CPPFLAGS) -c $< -o $@
 
 clean:
 	$(RM) $(OBJS)

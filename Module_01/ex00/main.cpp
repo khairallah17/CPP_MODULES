@@ -16,9 +16,9 @@ int main()
 {
     Zombie *z;
 
-    z = newZombie("brkCookie");
+    z = newZombie("brknCookie");
+     z->announce();
     randomChump("mohammed");
-    z->announce();
-
+    
     delete z;
 }

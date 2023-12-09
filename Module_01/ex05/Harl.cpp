@@ -36,6 +36,9 @@ void    Harl::error(void) {
     std::cout << BRED << "[ERROR]: This is unacceptable! I want to speak to the manager now." << RESET << std::endl;
 }
 
+void Harl::invalid(void){
+    std::cout << "THIS IS TOO MUCH" << std::endl;
+}
 void    Harl::complain(std::string level) {
 
     ptrToMemFunc complaints[4] = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
@@ -51,8 +54,5 @@ void    Harl::complain(std::string level) {
     i = 0;
     while (i < 4 && types[i] != level)
         i++;
-    if (i < 4)
-        (this->*complaints[i])();
-    else
-        std::cout << "THIS IS TOO MUCH" << std::endl; 
+    i < 4 ? (this->*complaints[i])() : invalid();
 }

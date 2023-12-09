@@ -21,10 +21,10 @@ int main ()
     std::string&    stringREF = aString;
 
     std::cout << "aString MEMORY ADDRESS ==> " << PURPLE << &aString << RESET << std::endl;
-    std::cout << "StringPTR MEMORY ADDRESS ==> " << PURPLE << &stringPTR << RESET << std::endl;
+    std::cout << "StringPTR MEMORY ADDRESS ==> " << PURPLE << stringPTR << RESET << std::endl;
     std::cout << "stringREF MEMORY ADDRESS ==> " << PURPLE << &stringREF << RESET << std::endl;
 
     std::cout << "aString VALUE ==> " << PURPLE << aString << RESET << std::endl;
-    std::cout << "StringPTR VALUE ==> " << PURPLE << stringPTR << RESET << std::endl;
+    std::cout << "StringPTR VALUE ==> " << PURPLE << *stringPTR << RESET << std::endl;
     std::cout << "stringREF VALUE ==> " << PURPLE << stringREF << RESET << std::endl;
 }
