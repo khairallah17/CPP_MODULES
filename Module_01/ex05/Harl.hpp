@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Weapon.hpp                                         :+:      :+:    :+:   */
+/*   Harl.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkhairal <mkhairal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 13:27:08 by mkhairal          #+#    #+#             */
-/*   Updated: 2023/12/09 10:32:22 by mkhairal         ###   ########.fr       */
+/*   Created: 2023/12/09 10:44:07 by mkhairal          #+#    #+#             */
+/*   Updated: 2023/12/09 11:26:19 by mkhairal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
 #include <iostream>
+#include <string>
 #define PURPLE "\e[1;35m"
 #define BRED "\e[1;31m"
 #define BGRN "\e[1;32m"
 #define RESET "\033[0m"
+#define BYLW "\e[1;33m"
 
-class Weapon {
-
+class Harl
+{
     private:
-        std::string type;
-
+        void    debug(void);
+        void    info(void);
+        void    warning(void);
+        void    error(void);
     public:
-        Weapon(std::string type);
-        ~Weapon(void);
-        const std::string&    getType(void);
-        void                  setType(std::string newOne);
+        Harl();
+        ~Harl();
+        void    complain(std::string level);
 };
+
+typedef void(Harl::*ptrToMemFunc)();
