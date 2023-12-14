@@ -6,7 +6,7 @@
 /*   By: mkhairal <mkhairal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 15:27:55 by mkhairal          #+#    #+#             */
-/*   Updated: 2023/12/10 17:49:32 by mkhairal         ###   ########.fr       */
+/*   Updated: 2023/12/14 14:57:39 by mkhairal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,24 @@
 #define PURPLE "\033[0;35m"
 #define RESET "\033[0m"
 
+// MIN MAX DEFIN
+
 Fixed::Fixed(): fixedPoint(0) {
-    std::cout << PURPLE << "Default Constructor called" << RESET << std::endl;
 }
 
 Fixed::Fixed(const int number): fixedPoint(number << fractionalBits) {
-    std::cout << PURPLE << "Int constructor called" << RESET << std::endl;
 }
 
 Fixed::Fixed(const float number): fixedPoint(roundf(number * (1 << fractionalBits))) {
-    std::cout << PURPLE << "Float constructor called" << RESET << std::endl;
 }
 
 Fixed::~Fixed() {
-    std::cout << PURPLE << "Destructor called" << RESET << std::endl;
 }
 
 Fixed::Fixed(const Fixed& other): fixedPoint(other.fixedPoint) {
-    std::cout << PURPLE << "Copy constructor called" << RESET << std::endl;
 }
 
 Fixed &Fixed::operator=(const Fixed& other) {
-    std::cout << PURPLE << "Copy assignment operator called" << RESET << std::endl;
     this->fixedPoint = other.getRawBits();
     return (*this);
 }
@@ -70,11 +66,11 @@ Fixed  Fixed::operator-(const Fixed& n1) {
 }
 
 Fixed  Fixed::operator*(const Fixed& n1) {
-    return (Fixed((this->fixedPoint * (n1.fixedPoint))).toFloat());
+    return (Fixed(this->toFloat() * n1.toFloat()));
 }
 
 Fixed  Fixed::operator/(const Fixed& n1) {
-    return (Fixed(this->fixedPoint / n1.fixedPoint).toFloat());
+    return (Fixed(this->toFloat() / n1.toFloat()));
 }
 
 bool  Fixed::operator>(const Fixed& n1) {
@@ -111,14 +107,30 @@ Fixed&  Fixed::operator--() {
     return (*this);
 }
 
-Fixed&  Fixed::operator++(int) {
-    Fixed& tmp = *this;
+Fixed  Fixed::operator++(int) {
+    Fixed tmp(this->toFloat());
     this->fixedPoint++;
     return (tmp);
 }
 
-Fixed&  Fixed::operator--(int) {
-    Fixed& tmp = *this;
+Fixed  Fixed::operator--(int) {
+    Fixed tmp(this->toFloat());
     this->fixedPoint--;
     return (tmp);
+}
+
+Fixed& Fixed::min(Fixed& n1, Fixed& n2) {
+    return (n1.getRawBits() > n2.getRawBits() ? n2 : n1);
+}
+
+Fixed& Fixed::max(Fixed& n1, Fixed& n2) {
+    return (n1.getRawBits() > n2.getRawBits() ? n1 : n2);
+}
+
+const Fixed& Fixed::min(const Fixed& n1, const Fixed& n2) {
+    return (n1.getRawBits() > n2.getRawBits() ? n2 : n1);
+}
+
+const Fixed& Fixed::max(const Fixed& n1, const Fixed& n2) {
+    return (n1.getRawBits() > n2.getRawBits() ? n1 : n2);
 }
