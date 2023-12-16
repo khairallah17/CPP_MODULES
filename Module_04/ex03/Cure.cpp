@@ -1,26 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.cpp                                            :+:      :+:    :+:   */
+/*   Cure.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkhairal <mkhairal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/14 22:55:15 by mkhairal          #+#    #+#             */
-/*   Updated: 2023/12/16 13:36:49 by mkhairal         ###   ########.fr       */
+/*   Created: 2023/12/16 18:10:43 by mkhairal          #+#    #+#             */
+/*   Updated: 2023/12/16 22:34:02 by mkhairal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Dog.hpp"
+#include "Cure.hpp"
 
-Dog::Dog(void) {
-    std::cout << PURPLE << "Dog constructor called" << RESET << std::endl;
-    this->type = "Dog";
+Cure::Cure() {
+    this->type = "cure";    
 }
 
-Dog::~Dog(void) {
-    std::cout << PURPLE << "Dog destructor called" << RESET << std::endl;
+Cure::~Cure() {   
 }
 
-void Dog::makeSound(void) const {
-    std::cout << GRN << "bark bark!" << RESET << std::endl;
+Cure& Cure::operator=(const Cure& cure) {
+    (void)cure;
+    return (*this);
+}
+
+Cure::Cure(const Cure& cure) {
+    *this = cure;
+}
+
+AMateria* Cure::clone() const {
+    return (new Cure());
+}
+
+void    Cure::use(ICharacter& target) {
+    std::cout << GRN << "* heals "<< target.getName() <<"'s wounds *" << RESET << std::endl;
 }

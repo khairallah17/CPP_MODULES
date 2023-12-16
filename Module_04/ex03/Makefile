@@ -5,18 +5,18 @@
 #                                                     +:+ +:+         +:+      #
 #    By: mkhairal <mkhairal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/12/14 22:51:50 by mkhairal          #+#    #+#              #
-#    Updated: 2023/12/16 14:54:10 by mkhairal         ###   ########.fr        #
+#    Created: 2023/12/16 22:15:21 by mkhairal          #+#    #+#              #
+#    Updated: 2023/12/16 22:51:01 by mkhairal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = Animal
+NAME = MateriaSource
 
 CC = c++
 CPPFLAGS = -Wall -Werror -Wextra -std=c++98
 RM = rm -rf
 
-SRCS = Animal.cpp Dog.cpp Cat.cpp WrongCat.cpp WrongAnimal.cpp main.cpp
+SRCS = Character.cpp Cure.cpp Ice.cpp AMateria.cpp MateriaSource.cpp main.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 all: $(NAME)
@@ -24,7 +24,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(CC) $(CPPFLAGS) $(OBJS) -o $(NAME)
 
-%.o:%.cpp Animal.hpp Dog.hpp Cat.hpp WrongCat.hpp WrongAnimal.hpp
+%.o:%.cpp AMateria.hpp Character.hpp ICharacter.hpp Cure.hpp Ice.hpp MateriaSource.hpp IMateriaSource.hpp
 	$(CC) $(CPPFLAGS) -c $< -o $@
 
 clean:

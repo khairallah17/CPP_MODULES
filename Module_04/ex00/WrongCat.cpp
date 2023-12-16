@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.cpp                                            :+:      :+:    :+:   */
+/*   WrongCat.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkhairal <mkhairal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/14 22:55:15 by mkhairal          #+#    #+#             */
-/*   Updated: 2023/12/16 13:36:49 by mkhairal         ###   ########.fr       */
+/*   Created: 2023/12/16 14:37:40 by mkhairal          #+#    #+#             */
+/*   Updated: 2023/12/16 14:58:53 by mkhairal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Dog.hpp"
+#include "WrongCat.hpp"
 
-Dog::Dog(void) {
-    std::cout << PURPLE << "Dog constructor called" << RESET << std::endl;
-    this->type = "Dog";
+WrongCat::WrongCat() {
+    std::cout << PURPLE << "WrongCat constructor called" << RESET << std::endl;
+    this->type = "WrongCat";
 }
 
-Dog::~Dog(void) {
-    std::cout << PURPLE << "Dog destructor called" << RESET << std::endl;
+WrongCat::~WrongCat() {
+    std::cout << PURPLE << "WrongCat desctuctor called" << RESET << std::endl;
 }
 
-void Dog::makeSound(void) const {
-    std::cout << GRN << "bark bark!" << RESET << std::endl;
+void WrongCat::makeSound() {
+    std::cout << GRN << "WrongCat meow meow" << RESET << std::endl;
 }

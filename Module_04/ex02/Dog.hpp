@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.cpp                                            :+:      :+:    :+:   */
+/*   Dog.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkhairal <mkhairal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/14 22:55:15 by mkhairal          #+#    #+#             */
-/*   Updated: 2023/12/16 13:36:49 by mkhairal         ###   ########.fr       */
+/*   Created: 2023/12/14 22:54:53 by mkhairal          #+#    #+#             */
+/*   Updated: 2023/12/16 17:58:31 by mkhairal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Dog.hpp"
+#include "AAnimal.hpp"
+#include "Brain.hpp"
 
-Dog::Dog(void) {
-    std::cout << PURPLE << "Dog constructor called" << RESET << std::endl;
-    this->type = "Dog";
-}
+class Dog: public AAnimal {
 
-Dog::~Dog(void) {
-    std::cout << PURPLE << "Dog destructor called" << RESET << std::endl;
-}
+    private:
+        Brain* brain;
 
-void Dog::makeSound(void) const {
-    std::cout << GRN << "bark bark!" << RESET << std::endl;
-}
+    public: 
+        Dog(void);
+        ~Dog(void);
+        Dog& operator=(const Dog& dog);
+        Dog(const Dog& dog);
+        void makeSound(void) const;
+
+};

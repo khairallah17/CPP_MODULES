@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.hpp                                         :+:      :+:    :+:   */
+/*   WrongAnimal.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkhairal <mkhairal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/14 22:53:19 by mkhairal          #+#    #+#             */
-/*   Updated: 2023/12/16 14:37:29 by mkhairal         ###   ########.fr       */
+/*   Created: 2023/12/16 14:37:49 by mkhairal          #+#    #+#             */
+/*   Updated: 2023/12/16 14:46:24 by mkhairal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,17 @@
 #define CYN "\e[0;36m"
 #define BLU "\e[0;34m"
 
-class Animal {
-
+class WrongAnimal {
+    
     protected:
         std::string type;
-    
-    public:
-        Animal(void);
-        virtual ~Animal(void);
-        Animal(const Animal& animal);
-        Animal& operator=(const Animal& animal);
-        virtual void makeSound() const;
-        void    setType(std::string type);
-        std::string getType() const;
 
+    public:
+        WrongAnimal(void);
+        ~WrongAnimal(void);
+        WrongAnimal& operator=(const WrongAnimal& animal);
+        WrongAnimal(const WrongAnimal& animal);
+
+        std::string getType() const;
+        void        makeSound();
 };

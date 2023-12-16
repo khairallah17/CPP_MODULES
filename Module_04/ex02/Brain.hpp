@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.cpp                                            :+:      :+:    :+:   */
+/*   Brain.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkhairal <mkhairal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/14 22:55:15 by mkhairal          #+#    #+#             */
-/*   Updated: 2023/12/16 13:36:49 by mkhairal         ###   ########.fr       */
+/*   Created: 2023/12/16 15:49:40 by mkhairal          #+#    #+#             */
+/*   Updated: 2023/12/16 17:14:22 by mkhairal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Dog.hpp"
+#pragma once
+#include <iostream>
+#define PURPLE "\033[0;35m"
+#define RESET "\033[0m"
+#define BRED "\e[1;31m"
+#define GRN "\e[0;32m"
+#define YEL "\e[0;33m"
+#define RED "\e[0;31m"
 
-Dog::Dog(void) {
-    std::cout << PURPLE << "Dog constructor called" << RESET << std::endl;
-    this->type = "Dog";
-}
+class Brain {
+    
+    private :
+        std::string ideas[100];
 
-Dog::~Dog(void) {
-    std::cout << PURPLE << "Dog destructor called" << RESET << std::endl;
-}
+    public :
+        Brain();
+        ~Brain();
+        Brain(const Brain& brain);
+        Brain& operator=(const Brain& brain);  
 
-void Dog::makeSound(void) const {
-    std::cout << GRN << "bark bark!" << RESET << std::endl;
-}
+};

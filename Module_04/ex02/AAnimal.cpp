@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.cpp                                            :+:      :+:    :+:   */
+/*   AAnimal.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkhairal <mkhairal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/14 22:55:15 by mkhairal          #+#    #+#             */
-/*   Updated: 2023/12/16 13:36:49 by mkhairal         ###   ########.fr       */
+/*   Created: 2023/12/16 18:03:19 by mkhairal          #+#    #+#             */
+/*   Updated: 2023/12/16 18:04:37 by mkhairal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Dog.hpp"
+#include "AAnimal.hpp"
 
-Dog::Dog(void) {
-    std::cout << PURPLE << "Dog constructor called" << RESET << std::endl;
-    this->type = "Dog";
+std::string AAnimal::getType() const {
+    return (this->type);
 }
 
-Dog::~Dog(void) {
-    std::cout << PURPLE << "Dog destructor called" << RESET << std::endl;
-}
-
-void Dog::makeSound(void) const {
-    std::cout << GRN << "bark bark!" << RESET << std::endl;
+void    AAnimal::setType(std::string type) {
+    this->type = type;
 }

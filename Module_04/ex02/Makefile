@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: mkhairal <mkhairal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/12/14 22:51:50 by mkhairal          #+#    #+#              #
-#    Updated: 2023/12/16 14:54:10 by mkhairal         ###   ########.fr        #
+#    Created: 2023/12/16 17:40:38 by mkhairal          #+#    #+#              #
+#    Updated: 2023/12/16 18:05:57 by mkhairal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC = c++
 CPPFLAGS = -Wall -Werror -Wextra -std=c++98
 RM = rm -rf
 
-SRCS = Animal.cpp Dog.cpp Cat.cpp WrongCat.cpp WrongAnimal.cpp main.cpp
+SRCS = AAnimal.cpp Dog.cpp Cat.cpp Brain.cpp main.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 all: $(NAME)
@@ -24,7 +24,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(CC) $(CPPFLAGS) $(OBJS) -o $(NAME)
 
-%.o:%.cpp Animal.hpp Dog.hpp Cat.hpp WrongCat.hpp WrongAnimal.hpp
+%.o:%.cpp AAnimal.hpp Dog.hpp Cat.hpp Brain.hpp
 	$(CC) $(CPPFLAGS) -c $< -o $@
 
 clean:
