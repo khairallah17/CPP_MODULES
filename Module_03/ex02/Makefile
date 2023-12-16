@@ -6,11 +6,11 @@
 #    By: mkhairal <mkhairal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/14 21:03:33 by mkhairal          #+#    #+#              #
-#    Updated: 2023/12/14 21:59:14 by mkhairal         ###   ########.fr        #
+#    Updated: 2023/12/16 11:27:39 by mkhairal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ClapTrap
+NAME = FragTrap
 
 CC = c++
 CPPFLAGS = -Wall -Werror -Wextra -std=c++98

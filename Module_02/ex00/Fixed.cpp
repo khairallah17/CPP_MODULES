@@ -6,7 +6,7 @@
 /*   By: mkhairal <mkhairal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 15:27:55 by mkhairal          #+#    #+#             */
-/*   Updated: 2023/12/10 16:00:25 by mkhairal         ###   ########.fr       */
+/*   Updated: 2023/12/15 11:40:21 by mkhairal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ Fixed::~Fixed() {
     std::cout << PURPLE << "Destructor called" << RESET << std::endl;
 }
 
-Fixed::Fixed(const Fixed& other): fixedPoint(other.fixedPoint) {
+Fixed::Fixed(const Fixed& other) {
     std::cout << PURPLE << "Copy constructor called" << RESET << std::endl;
+    *this = other;
 }
 
 Fixed &Fixed::operator=(const Fixed& other) {

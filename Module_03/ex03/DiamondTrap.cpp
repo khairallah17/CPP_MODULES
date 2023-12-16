@@ -6,15 +6,18 @@
 /*   By: mkhairal <mkhairal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 22:25:29 by mkhairal          #+#    #+#             */
-/*   Updated: 2023/12/14 22:50:17 by mkhairal         ###   ########.fr       */
+/*   Updated: 2023/12/16 11:16:16 by mkhairal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "DiamondTrap.hpp"
 #define PURPLE "\033[0;35m"
 #define RESET "\033[0m"
-#define BGRN "\e[1;32m"
+#define GRN "\e[0;32m"
 #define BRED "\e[1;31m"
+#define YEL "\e[0;33m"
+#define CYN "\e[0;36m"
+#define BLU "\e[0;34m"
 
 DiamondTrap::DiamondTrap(void) {
     std::cout << PURPLE << "DiamondTrap constructor called" << RESET << std::endl;
@@ -26,50 +29,36 @@ DiamondTrap::~DiamondTrap(void) {
 
 DiamondTrap::DiamondTrap(std::string name) {
     std::cout << PURPLE << "DiamondTrap parametrized constructor called" << RESET << std::endl;
-    this->name = name;
-    this->setName(name + "_clap_name");
-    this->setDamage(30);
-    this->setEnergy(50);
-    this->setPoints(100);
+    this->ClapTrap::name = name + "_clap_name";
+    this->name = (name);
+    this->damage = (30);
+    this->energy = (50);
+    this->points = (100);
 }
 
 DiamondTrap& DiamondTrap::operator=(const DiamondTrap& trap) {
-    this->setDamage(trap.getDamage());
-    this->setEnergy(trap.getEnergy());
-    this->setName(trap.getName());
-    this->setPoints(trap.getPoints());
+    std::cout << PURPLE << "Diamond Trap copy assignement operator called" << RESET << std::endl;
+    this->ClapTrap::name = trap.ClapTrap::name;
+    this->damage = (trap.damage);
+    this->energy = (trap.energy);
+    this->name = (trap.name);
+    this->points = (trap.points);
     return (*this);
 }
 
 DiamondTrap::DiamondTrap(const DiamondTrap& trap) {
-    std::cout << BGRN << "DiamondTrap Copy Constructor called" << RESET << std::endl;
-    this->setName(trap.getName());
+    std::cout << BLU << "DiamondTrap Copy Constructor called" << RESET << std::endl;
+    this->name = (trap.name);
+    this->ClapTrap::name = trap.ClapTrap::name;
+    this->energy = trap.energy;
+    this->points = trap.points;
+    this->damage = trap.damage;
 }
 
 void    DiamondTrap::attack(const std::string& target) {
-    ScavTrap::attack(target);
-}
-
-void DiamondTrap::beRepaired(unsigned int amount) {
-    if (this->getPoints() <= 0 || this->getEnergy() <= 0) {
-        std::cout << BRED << "CHUF CHI CHWIYA LDIK JIH" << RESET << std::endl;
-        return ;
-    }
-    this->setPoints(this->getPoints() + amount);
-    this->setEnergy(this->getEnergy() - 1);
-}
-
-void DiamondTrap::takeDamage(unsigned int amount) {
-    if (this->getPoints() <= 0 || this->getEnergy() <= 0) {
-        std::cout << BRED << "CHUF CHI CHWIYA LDIK JIH" << RESET << std::endl;
-        return ;
-    }
-    if (amount > (unsigned int)this->getPoints())
-        this->setPoints(0);
-    else
-        this->setPoints(this->getPoints() - amount);
+    this->ScavTrap::attack(target);
 }
 
 void    DiamondTrap::whoAmI() {
-    std::cout << "DiamondTrap " << this->name << " ClapTrap " << this->getName() << std::endl;
+    std::cout << CYN << "DiamondTrap " << this->name << " ClapTrap " << this->ClapTrap::name << RESET << std::endl;
 }

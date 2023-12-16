@@ -6,37 +6,41 @@
 /*   By: mkhairal <mkhairal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 21:07:30 by mkhairal          #+#    #+#             */
-/*   Updated: 2023/12/14 22:50:17 by mkhairal         ###   ########.fr       */
+/*   Updated: 2023/12/16 11:33:29 by mkhairal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
 #define PURPLE "\033[0;35m"
 #define RESET "\033[0m"
-#define BGRN "\e[1;32m"
 #define BRED "\e[1;31m"
+#define GRN "\e[0;32m"
+#define YEL "\e[0;33m"
+#define RED "\e[0;31m"
 
 ClapTrap::ClapTrap(void): name("ZIKO LGHLID"), points(10), energy(10), damage(0) {
-    std::cout << PURPLE << "constructor called" << RESET << std::endl;
+    std::cout << PURPLE << "ClapTrap constructor called" << RESET << std::endl;
 }
 
 ClapTrap::~ClapTrap(void) {
-    std::cout << PURPLE << "destructor called" << RESET << std::endl;
+    std::cout << PURPLE << "ClapTrap destructor called" << RESET << std::endl;
 }
 
 ClapTrap::ClapTrap(std::string name): name(name), points(10), energy(10), damage(0) {
-    std::cout << PURPLE << "parametrized constructor called" << RESET << std::endl;
+    std::cout << PURPLE << "ClapTrap parametrized constructor called" << RESET << std::endl;
 }
 
 ClapTrap& ClapTrap::operator=(const ClapTrap& trap) {
+    std::cout << GRN << "ClapTrap Copy assignement operator called" << RESET << std::endl;
     this->damage = trap.damage;
     this->energy = trap.energy;
     this->name = trap.name;
     this->points = trap.points;
+    return (*this);
 }
 
-ClapTrap::ClapTrap(const ClapTrap& trap): name(trap.name) {
-    std::cout << BGRN << "Copy Constructor called" << RESET << std::endl;
+ClapTrap::ClapTrap(const ClapTrap& trap): name(trap.name), points(trap.points), energy(trap.energy), damage(trap.damage) {
+    std::cout << GRN << "ClapTrap Copy Constructor called" << RESET << std::endl;
 }
 
 void    ClapTrap::attack(const std::string& target) {
@@ -53,17 +57,16 @@ void ClapTrap::beRepaired(unsigned int amount) {
         std::cout << BRED << "CHUF CHI CHWIYA LDIK JIH" << RESET << std::endl;
         return ;
     }
+    std::cout << YEL << "ClapTrap "  << this->name << " repaired it self for " << amount << RESET << std::endl;
     this->points += amount;
     this->energy -= 1;
 }
 
 void ClapTrap::takeDamage(unsigned int amount) {
-    if (this->points <= 0 || this->energy <= 0) {
+    if (this->points <= 0) {
         std::cout << BRED << "CHUF CHI CHWIYA LDIK JIH" << RESET << std::endl;
         return ;
     }
-    if (amount > this->points)
-        this->points = 0;
-    else
-        this->points -= amount;
+    this->points -= amount;
+    std::cout << RED << "ClapTarp " << this->name << " took " << amount << " of damage" << RESET << std::endl;
 }

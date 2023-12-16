@@ -6,7 +6,7 @@
 /*   By: mkhairal <mkhairal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 15:27:55 by mkhairal          #+#    #+#             */
-/*   Updated: 2023/12/10 17:15:19 by mkhairal         ###   ########.fr       */
+/*   Updated: 2023/12/15 11:34:14 by mkhairal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@ Fixed::~Fixed() {
     std::cout << PURPLE << "Destructor called" << RESET << std::endl;
 }
 
-Fixed::Fixed(const Fixed& other): fixedPoint(other.fixedPoint) {
+Fixed::Fixed(const Fixed& other) {
     std::cout << PURPLE << "Copy constructor called" << RESET << std::endl;
+    *this = other;
 }
 
 Fixed &Fixed::operator=(const Fixed& other) {
@@ -49,7 +50,7 @@ void Fixed::setRawits(int const raw) {
 }
 
 float   Fixed::toFloat(void) const {
-    return ((float)fixedPoint / (1 << fractionalBits));
+    return ((float)this->getRawBits() / (1 << this->fractionalBits));
 }
 
 int     Fixed::toInt(void) const {
