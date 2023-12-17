@@ -6,7 +6,7 @@
 /*   By: mkhairal <mkhairal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 17:58:53 by mkhairal          #+#    #+#             */
-/*   Updated: 2023/12/16 18:04:46 by mkhairal         ###   ########.fr       */
+/*   Updated: 2023/12/17 10:10:09 by mkhairal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ class AAnimal {
         std::string type;
     
     public:
+        AAnimal();
+        AAnimal(const AAnimal& animal);
+        virtual ~AAnimal();
+        virtual AAnimal& operator=(const AAnimal& animal);
         virtual void makeSound() const = 0;
         void    setType(std::string type);
         std::string getType() const;

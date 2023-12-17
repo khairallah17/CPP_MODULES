@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   WrongCAt.hpp                                       :+:      :+:    :+:   */
+/*   WrongCat.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkhairal <mkhairal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 15:00:30 by mkhairal          #+#    #+#             */
-/*   Updated: 2023/12/16 15:01:38 by mkhairal         ###   ########.fr       */
+/*   Updated: 2023/12/17 10:05:55 by mkhairal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ class WrongCat: public WrongAnimal {
     public :
         WrongCat();
         ~WrongCat();
-        void makeSound();
+        WrongCat& operator=(const WrongCat& wrongCat);
+        WrongCat(const WrongCat& wrongCat);
+        void makeSound() const;
 
 };

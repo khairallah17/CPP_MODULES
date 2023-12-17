@@ -6,7 +6,7 @@
 /*   By: mkhairal <mkhairal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 14:45:43 by mkhairal          #+#    #+#             */
-/*   Updated: 2023/12/16 14:57:40 by mkhairal         ###   ########.fr       */
+/*   Updated: 2023/12/17 09:47:33 by mkhairal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ std::string WrongAnimal::getType() const {
     return (this->type);
 }
 
-void WrongAnimal::makeSound() {
+void WrongAnimal::makeSound() const {
     std::cout << GRN << "WrongAnimal sound" << RESET << std::endl;
 }

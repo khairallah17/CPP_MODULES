@@ -6,7 +6,7 @@
 /*   By: mkhairal <mkhairal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 18:20:45 by mkhairal          #+#    #+#             */
-/*   Updated: 2023/12/16 22:14:41 by mkhairal         ###   ########.fr       */
+/*   Updated: 2023/12/17 10:25:24 by mkhairal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "ICharacter.hpp"
 
 class Character: public ICharacter {
+    
     private:
         AMateria* inventory[4];
         std::string name;

@@ -6,7 +6,7 @@
 /*   By: mkhairal <mkhairal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 14:37:49 by mkhairal          #+#    #+#             */
-/*   Updated: 2023/12/16 14:46:24 by mkhairal         ###   ########.fr       */
+/*   Updated: 2023/12/17 09:47:27 by mkhairal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,5 @@ class WrongAnimal {
         WrongAnimal(const WrongAnimal& animal);
 
         std::string getType() const;
-        void        makeSound();
+        void        makeSound() const;
 };

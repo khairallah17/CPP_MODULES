@@ -6,7 +6,7 @@
 /*   By: mkhairal <mkhairal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 22:53:10 by mkhairal          #+#    #+#             */
-/*   Updated: 2023/12/16 14:31:29 by mkhairal         ###   ########.fr       */
+/*   Updated: 2023/12/17 10:16:54 by mkhairal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ Animal::~Animal(void) {
 
 Animal::Animal(const Animal& animal) {
     std::cout << PURPLE << "Animal copy constructor called" << RESET << std::endl;
-    this->setType(animal.type);
+    *this = animal;
 }
 
 Animal& Animal::operator=(const Animal& animal) {

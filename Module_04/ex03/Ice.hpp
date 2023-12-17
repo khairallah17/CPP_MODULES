@@ -6,7 +6,7 @@
 /*   By: mkhairal <mkhairal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 18:08:21 by mkhairal          #+#    #+#             */
-/*   Updated: 2023/12/16 22:48:59 by mkhairal         ###   ########.fr       */
+/*   Updated: 2023/12/17 10:24:36 by mkhairal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include "AMateria.hpp"
 
 class Ice: public AMateria{
-    private:
-        /* data */
     public:
         Ice();
         ~Ice();
