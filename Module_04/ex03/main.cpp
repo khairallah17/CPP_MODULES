@@ -6,7 +6,7 @@
 /*   By: mkhairal <mkhairal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 22:10:25 by mkhairal          #+#    #+#             */
-/*   Updated: 2023/12/16 23:09:43 by mkhairal         ###   ########.fr       */
+/*   Updated: 2023/12/17 10:49:03 by mkhairal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,8 @@
 #include "Cure.hpp"
 #include "Ice.hpp"
 
-void f() { system("leaks MateriaSource"); }
-
 int main()
 {
-    atexit(f);
     IMateriaSource* src = new MateriaSource();
 
     src->learnMateria(new Ice());

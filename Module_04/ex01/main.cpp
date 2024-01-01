@@ -6,19 +6,15 @@
 /*   By: mkhairal <mkhairal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:37:25 by mkhairal          #+#    #+#             */
-/*   Updated: 2023/12/17 10:08:20 by mkhairal         ###   ########.fr       */
+/*   Updated: 2023/12/17 10:45:45 by mkhairal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cat.hpp"
 #include "Dog.hpp"
 
-void f() { system("leaks Animal"); }
-
 int main()
 {
-
-    atexit(f);
 
     {
         Animal* animals[100] = {};
@@ -34,6 +30,7 @@ int main()
         for (int i = 0 ; i < 100 ; i++) {
             delete animals[i];
         }
+
     }
     
     {

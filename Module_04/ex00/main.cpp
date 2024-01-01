@@ -6,7 +6,7 @@
 /*   By: mkhairal <mkhairal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:37:25 by mkhairal          #+#    #+#             */
-/*   Updated: 2023/12/16 15:46:07 by mkhairal         ###   ########.fr       */
+/*   Updated: 2023/12/17 10:42:49 by mkhairal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ int main()
     j->makeSound();
     wa->makeSound();
     meta->makeSound();
+
+    delete meta;
+    delete i;
+    delete j;
+    delete wa;
 
     return 0;
 }
