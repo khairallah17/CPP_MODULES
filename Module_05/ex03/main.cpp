@@ -1,4 +1,5 @@
 #include "Bureaucrat.hpp"
+#include "Intern.hpp"
 #include "AForm.hpp"
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
@@ -6,86 +7,43 @@
 
 int main ()  {
     
-	// std::cout << "				ShrubberyCreationForm's Part" << std::endl;
+	Intern intern;
+	Bureaucrat bureaucrat("Bureaucrat007", 1);
+	AForm *form;
+
 	// try
 	// {
-	// 	ShrubberyCreationForm p1;
-	// 	Bureaucrat b2("b2", 145);
-
-
-	// 	std::cout << p1 << std::endl;
-	// 	std::cout << b2 << std::endl;
-	// 	p1.beSigned(b2);
-	// 	std::cout << p1 << std::endl;
-	// 	b2.executeForm(p1);
+	// 	form = intern.makeForm("robotomy request", "Bureaucrat007");
+	// 	bureaucrat.signForm(*form);
+	// 	bureaucrat.executeForm(*form);
+	// 	delete form;
 	// }
 	// catch (std::exception &e)
 	// {
 	// 	std::cout << e.what() << std::endl;
 	// }
+	try
+	{
+		form = intern.makeForm("shrubbery creation", "Bureaucrat007");
+		bureaucrat.signForm(*form);
+		bureaucrat.executeForm(*form);
+		delete form;
+	}
+	catch (std::exception &e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+
 	// try
 	// {
-	// 	ShrubberyCreationForm p1;
-	// 	Bureaucrat b2("b2", 100);
-
-
-	// 	std::cout << p1 << std::endl;
-	// 	std::cout << b2 << std::endl;
-	// 	p1.beSigned(b2);
-	// 	std::cout << p1 << std::endl;
-	// 	b2.executeForm(p1);
+	// 	form = intern.makeForm("presidential pardon", "Bureaucrat007");
+	// 	bureaucrat.signForm(*form);
+	// 	bureaucrat.executeForm(*form);
+	// 	delete form;
 	// }
 	// catch (std::exception &e)
 	// {
 	// 	std::cout << e.what() << std::endl;
 	// }
-
-	// std::cout << "				RobotomyRequestForm Part" << std::endl;
-	// {
-	// 	RobotomyRequestForm p1;
-	// 	Bureaucrat b2("b2", 72);
-
-
-	// 	std::cout << p1 << std::endl;
-	// 	std::cout << b2 << std::endl;
-	// 	p1.beSigned(b2);
-	// 	std::cout << p1 << std::endl;
-	// 	b2.executeForm(p1);
-	// }
-	// {
-	// 	RobotomyRequestForm p1;
-	// 	Bureaucrat b2("b2", 45);
-
-
-	// 	std::cout << p1 << std::endl;
-	// 	std::cout << b2 << std::endl;
-	// 	p1.beSigned(b2);
-	// 	std::cout << p1 << std::endl;
-	// 	b2.executeForm(p1);
-	// }
-		std::cout << "				PresidentialPardonForm's Part" << std::endl;
-	{
-		PresidentialPardonForm p1;
-		Bureaucrat b2("b2", 25);
-
-
-		std::cout << p1 << std::endl;
-		std::cout << b2 << std::endl;
-		p1.beSigned(b2);
-		std::cout << p1 << std::endl;
-		b2.executeForm(p1);
-	}
-	{
-		PresidentialPardonForm p1;
-		Bureaucrat b2("b2", 5);
-
-
-		std::cout << p1 << std::endl;
-		std::cout << b2 << std::endl;
-		p1.beSigned(b2);
-		std::cout << p1 << std::endl;
-		b2.executeForm(p1);
-	}
-
-    return EXIT_SUCCESS;
+	return (0);
 }
