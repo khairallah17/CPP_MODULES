@@ -1,4 +1,6 @@
 #include <string>
+#include <cstring>
+#include <iostream>
 
 class ScalarConverter {
 
