@@ -25,12 +25,13 @@ RobotomyRequestForm &RobotomyRequestForm::operator=(RobotomyRequestForm const &f
 }
 
 void    RobotomyRequestForm::executeAction() const {
+    std::srand(std::time(nullptr));
     int timer = std::rand() % 10;
     int chance = std::rand() % 2;
     for (int i = 0 ; i < timer ; i++)
         std::cout << YEL << "drilling noise" << RESET << std::endl;
     if (chance)
-        std::cout << CYN << this->target << " has been robotomized successfully 50%% of the time" << RESET << std::endl;
+        std::cout << CYN << this->target << " has been robotomized successfully 50% of the time" << RESET << std::endl;
     else
         std::cout << BRED << "Robotomy failed" << RESET <<  std::endl;
 }

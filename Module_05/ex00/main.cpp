@@ -8,13 +8,12 @@ int main ()  {
 
         std::cout << br << std::endl;
 
-        br.increment();
-        br.increment();
-        br.increment();
         br.decrement();
         br.decrement();
         br.decrement();
         br.decrement();
+
+        std::cout << br << std::endl;
 
     } catch (std::exception &e) {
         std::cerr << BRED << e.what() << RESET << std::endl;

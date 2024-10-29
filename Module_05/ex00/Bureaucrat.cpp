@@ -33,13 +33,13 @@ void Bureaucrat::setGrade(int grade) {
 }
 
 void Bureaucrat::decrement() {
-    if (this->getGrade() == 150)
+    if (this->getGrade() >= 150)
         throw Bureaucrat::GradeTooLowException();
     this->setGrade(this->getGrade() + 1);
 }
 
 void Bureaucrat::increment() {
-    if (this->getGrade() == 1)
+    if (this->getGrade() <= 1)
         throw Bureaucrat::GradeTooHighException();
     this->setGrade(this->getGrade() - 1);
 }

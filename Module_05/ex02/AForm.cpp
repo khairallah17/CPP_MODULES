@@ -74,6 +74,6 @@ const char *AForm::GradeTooLowException::what() const throw() {
 
 std::ostream &operator<<(std::ostream &os, const AForm &form) {
     return (
-        os << "AForm name: " << form.getName() << "\n" << "\tAForm execution Grade: " << form.getSignGrade() << "\n" << "\tAForm Sign Grade: " << form.getExecGrade() << "\n" << "\tIs AForm Singed: " << form.getSigne()
+        os << "\tAForm name: " << form.getName() << "\n" << "\tAForm execution Grade: " << form.getSignGrade() << "\n" << "\tAForm Sign Grade: " << form.getExecGrade() << "\n" << "\tIs AForm Singed: " << form.getSigne()
     );
 }

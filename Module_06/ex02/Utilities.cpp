@@ -1,9 +1,14 @@
 #include "Utilities.hpp"
 #include <exception>
 #include <unistd.h>
+#include<sys/time.h>
 
 Base    *generate() {
     
+    timeval tm;
+    gettimeofday(&tm, NULL);
+
+    std::srand(tm.tv_sec * 1000000 + tm.tv_usec);
     int number = std::rand() % 3;
 
     if (number == 0) {

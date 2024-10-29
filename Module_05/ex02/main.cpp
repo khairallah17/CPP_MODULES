@@ -40,33 +40,10 @@ int main ()  {
 	// 	std::cout << e.what() << std::endl;
 	// }
 
-	// std::cout << "				RobotomyRequestForm Part" << std::endl;
-	// {
-	// 	RobotomyRequestForm p1;
-	// 	Bureaucrat b2("b2", 72);
-
-
-	// 	std::cout << p1 << std::endl;
-	// 	std::cout << b2 << std::endl;
-	// 	p1.beSigned(b2);
-	// 	std::cout << p1 << std::endl;
-	// 	b2.executeForm(p1);
-	// }
-	// {
-	// 	RobotomyRequestForm p1;
-	// 	Bureaucrat b2("b2", 45);
-
-
-	// 	std::cout << p1 << std::endl;
-	// 	std::cout << b2 << std::endl;
-	// 	p1.beSigned(b2);
-	// 	std::cout << p1 << std::endl;
-	// 	b2.executeForm(p1);
-	// }
-		std::cout << "				PresidentialPardonForm's Part" << std::endl;
+	std::cout << "				RobotomyRequestForm Part" << std::endl;
 	{
-		PresidentialPardonForm p1;
-		Bureaucrat b2("b2", 25);
+		RobotomyRequestForm p1;
+		Bureaucrat b2("b2", 72);
 
 
 		std::cout << p1 << std::endl;
@@ -76,8 +53,8 @@ int main ()  {
 		b2.executeForm(p1);
 	}
 	{
-		PresidentialPardonForm p1;
-		Bureaucrat b2("b2", 5);
+		RobotomyRequestForm p1;
+		Bureaucrat b2("b2", 45);
 
 
 		std::cout << p1 << std::endl;
@@ -86,6 +63,29 @@ int main ()  {
 		std::cout << p1 << std::endl;
 		b2.executeForm(p1);
 	}
+	// 	std::cout << "				PresidentialPardonForm's Part" << std::endl;
+	// {
+	// 	PresidentialPardonForm p1;
+	// 	Bureaucrat b2("b2", 25);
+
+
+	// 	std::cout << p1 << std::endl;
+	// 	std::cout << b2 << std::endl;
+	// 	p1.beSigned(b2);
+	// 	std::cout << p1 << std::endl;
+	// 	b2.executeForm(p1);
+	// }
+	// {
+	// 	PresidentialPardonForm p1;
+	// 	Bureaucrat b2("b2", 5);
+
+
+	// 	std::cout << p1 << std::endl;
+	// 	std::cout << b2 << std::endl;
+	// 	p1.beSigned(b2);
+	// 	std::cout << p1 << std::endl;
+	// 	b2.executeForm(p1);
+	// }
 
     return EXIT_SUCCESS;
 }
