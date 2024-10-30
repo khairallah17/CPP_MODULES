@@ -39,16 +39,16 @@ Array<T>::Array(const Array &copy){
 template<typename T>
 Array<T> &Array<T>::operator=(const Array<T> &copy) {
 
-    if (this != copy) {
+    if (this != &copy) {
         if (arr)
             delete [] arr;
         arr = new T[copy.size()]();
-        for (int i = 0 ; i < copy.size() ; i++) {
-            arr[i] = copy.arr[i];
-        }
         arr_size = copy.arr_size;
+        for (unsigned int i = 0 ; i < copy.size() ; i++)
+            arr[i] = copy.arr[i];
     }
 
+    return *this;
 }
 
 template<typename T>

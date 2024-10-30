@@ -1,30 +1,53 @@
-#include "Array.hpp"
 #include <iostream>
+#include "Array.hpp"
 
-int main()
+#define MAX_VAL 750
+int main(int, char**)
 {
-	try
-	{
-		Array<int> intArray(10);
-		for (int i = 0; i < 10; i++)
-			intArray[i] = i + 5;
-		for (int i = 0; i < 10; i++)
-			std::cout << "intArray[" << i << "] " << intArray[i] << std::endl;
-		std::cout << "Size of intArray: " << intArray.size() << std::endl;
+    Array<int> numbers(MAX_VAL);
+    int* mirror = new int[MAX_VAL];
+    srand(time(NULL));
+    for (int i = 0; i < MAX_VAL; i++)
+    {
+        const int value = rand();
+        numbers[i] = value;
+        mirror[i] = value;
+    }
+    //SCOPE
+    {
+        Array<int> tmp = numbers;
+        Array<int> test(tmp);
+    }
 
-		Array<double> doubleArray(5);
-		for (int i = 0; i < 5; i++)
-			doubleArray[i] = i + 0.2;
-		for (int i = 0; i < 5; i++)
-			std::cout << "doubleArray[" << i << "] " << doubleArray[i] << std::endl;
-		std::cout << "Size of doubleArray: " << doubleArray.size() << std::endl;
+    for (int i = 0; i < MAX_VAL; i++)
+    {
+        if (mirror[i] != numbers[i])
+        {
+            std::cerr << "didn't save the same value!!" << std::endl;
+            return 1;
+        }
+    }
+    try
+    {
+        numbers[-2] = 0;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+    try
+    {
+        numbers[MAX_VAL] = 0;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
 
-		Array<std::string> stringArray;
-		std::cout << "Size of stringArray: " << stringArray.size() << std::endl;
-	}
-	catch (std::exception())
-	{
-		std::cout << "exception caught!!" << std::endl;
-	}
-	return 0;
+    for (int i = 0; i < MAX_VAL; i++)
+    {
+        numbers[i] = rand();
+    }
+    delete [] mirror;
+    return 0;
 }
