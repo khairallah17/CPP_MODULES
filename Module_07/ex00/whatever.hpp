@@ -7,13 +7,16 @@ void    swap(T &n1, T &n2) {
     n2 = temp;
 }
 
-// RETURN SECOND
 template<typename T>
 T   min(T &n1, T &n2) {
-    return (n1 > n2 ? n2 : n1);
+    if (n1 >= n2)
+        return n2;
+    return (n1);
 }
 
 template<typename T>
 T   max(T &n1, T &n2) {
-    return (n1 < n2 ? n2 : n1);
+    if (n1 <= n2)
+        return n2;
+    return (n1);
 }
