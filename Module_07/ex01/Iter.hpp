@@ -1,7 +1,7 @@
 #include <iostream>
 
-template<typename T>
-void    iter(T *ptr, int size, void func(T &)) {
+template<typename T, typename S>
+void    iter(T *ptr, int size, void func(S &)) {
 
     if (!ptr)
         return;

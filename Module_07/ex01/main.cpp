@@ -21,7 +21,7 @@ int main()
         std::cout << arr[i] << std::endl;
     }
 
-    iter(arr, 10, mul);
+    iter(arr, 10, mul<int>);
 
     std::cout << "============ AFTER ITER ============" << std::endl;
     for (int i = 0 ; i < 10 ; i++) {

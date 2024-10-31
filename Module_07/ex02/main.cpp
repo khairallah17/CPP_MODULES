@@ -1,4 +1,6 @@
+#include <cstring>
 #include <iostream>
+#include <new>
 #include "Array.hpp"
 
 #define MAX_VAL 750
@@ -50,4 +52,5 @@ int main(int, char**)
     }
     delete [] mirror;
     return 0;
+
 }

@@ -33,6 +33,7 @@ Array<T>::Array(unsigned int size) {
 
 template<typename T>
 Array<T>::Array(const Array &copy){
+    this->arr = NULL;
     *this = copy;
 }
 
@@ -54,7 +55,7 @@ Array<T> &Array<T>::operator=(const Array<T> &copy) {
 template<typename T>
 T &Array<T>::operator[](unsigned int n) {
     if (n >= arr_size)
-        throw std::exception();
+        throw std::logic_error("index out of bounds");
     return (this->arr[n]);
 }
 
