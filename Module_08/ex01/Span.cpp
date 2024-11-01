@@ -1,8 +1,16 @@
 #include "Span.hpp"
 #include <algorithm>
 #include <valarray>
+#include <iostream>
 
-Span::Span() {}
+Span::Span() {
+    N = 0;
+}
+
+Span::Span(unsigned int n) {
+    N = n;
+}
+
 Span::~Span() {}
 
 Span::Span(const Span &span) {
@@ -10,12 +18,16 @@ Span::Span(const Span &span) {
 }
 
 Span &Span::operator=(const Span &span) {
-    return  *this;
+    if (this != &span) {
+        N = span.N;
+        vec = span.vec;
+    }
+    return *this;
 }
 
 void    Span::addNumber(int n) {
 
-    int size = vec.size();
+    unsigned int size = vec.size();
 
     if (size >= N)
         throw std::exception();
@@ -24,7 +36,7 @@ void    Span::addNumber(int n) {
 
 }
 
-int    Span::longestSpan() const {
+int    Span::longestSpan() {
 
     if (vec.size() < 2)
         throw std::exception();
@@ -36,7 +48,7 @@ int    Span::longestSpan() const {
 
 }
 
-int     Span::shortestSpan() const {
+int     Span::shortestSpan() {
 
     if (vec.size() < 2)
         throw std::exception();
@@ -45,7 +57,7 @@ int     Span::shortestSpan() const {
 
     std::sort(vec.begin(), vec.end());
 
-    for (int i = 0 ; i < vec.size() - 1 ; i++)
+    for (unsigned int i = 0 ; i < vec.size() - 1 ; i++)
         diffs.push_back(vec[i + 1] - vec[i]);
 
     std::sort(diffs.begin(), diffs.end());

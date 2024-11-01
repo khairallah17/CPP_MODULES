@@ -16,8 +16,8 @@ class Span{
 
         template<typename T> void    addNumber(T start, T end);
         void    addNumber(int n);
-        int    shortestSpan() const;
-        int    longestSpan() const;
+        int    shortestSpan();
+        int    longestSpan();
 
 };
 
@@ -28,8 +28,10 @@ void    Span::addNumber(T start, T end) {
 
     n = 0;
     while (start != end) {
-        if (n >= N)
+        if (n >= N) {
+            std::cout << "n ==> " << n << " N ==> " << N << std::endl;
             throw std::exception();
+        }
         vec.push_back(start);
         n++;
         start++;
