@@ -1,9 +1,5 @@
 #include "BitcoinExchange.hpp"
-#include <cmath>
-#include <ctime>
-#include <exception>
-#include <stdexcept>
-#include <vector>
+#include <sys/_types/_time_t.h>
 
 typedef std::stringstream ss;
 
@@ -34,14 +30,32 @@ std::string trim(const std::string& str) {
 }
 
 BitcoinExchange::BitcoinExchange(std::string file_name) {
-    BitcoinExchange::insertData(file_name);
-    BitcoinExchange::parseData('|');
-    db.clear();
     BitcoinExchange::insertData("data.csv");
     BitcoinExchange::fillDb();
+    db.clear();
+    BitcoinExchange::insertData(file_name);
+    BitcoinExchange::parseData('|');
 }
 
 BitcoinExchange::~BitcoinExchange() {}
+
+void    BitcoinExchange::conversion(time_t date, float value) {
+
+    BitcoinExchange::getValueByDate(date, value);
+
+}
+
+const   char*   BitcoinExchange::InvalidDate::what() const throw() {
+    return "Error: Invalid Date";
+}
+
+const   char*   BitcoinExchange::PriceTooHigh::what() const throw() {
+    return "Error: too large number.";
+}
+
+const   char*   BitcoinExchange::PriceTooLow::what() const throw() {
+    return "Error: not a positive number.";
+}
 
 bool    BitcoinExchange::validHeader(std::string header, char delim) {
 
@@ -93,10 +107,8 @@ time_t    BitcoinExchange::validDate(std::string date) {
         int daysInMonth[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
 
-    if (ret == NULL) {
-        std::cout << date << std::endl;
-        throw std::logic_error("Error: invalid Date");
-    }
+    if (ret == NULL)
+        throw BitcoinExchange::InvalidDate();
 
     if (tm.tm_mon == 1 && !isLeapYear(tm.tm_year) && tm.tm_mday > 28 ) {
         std::cout << date << std::endl;
@@ -114,30 +126,34 @@ float    BitcoinExchange::validPrice(std::string price) {
 
     float prc = std::atof(price.c_str());
 
-    if (prc < 0 || prc > 1000) {
-        std::cout << prc << std::endl;
-        throw std::logic_error("Error: invalid Price");
-    }
+    if (prc < 0)
+        throw BitcoinExchange::PriceTooLow();
+    else if (prc > 1000)
+        throw BitcoinExchange::PriceTooHigh();
 
     return prc;
 }
 
 void    BitcoinExchange::parseData(char delim) {
 
-    std::vector<std::string>::iterator data_start = db.begin();
-    std::vector<std::string>::iterator data_end = db.end();
 
-    BitcoinExchange::validHeader(*data_start, delim);
-    data_start++;
-    while (data_start != data_end) {
+        std::vector<std::string>::iterator data_start = db.begin();
+        std::vector<std::string>::iterator data_end = db.end();
 
-        std::vector<std::string> splited = split(*data_start, '|');
-        clean_data[BitcoinExchange::validDate(trim(splited[0]))] = BitcoinExchange::validPrice(trim(splited[1]));
-        
+        BitcoinExchange::validHeader(*data_start, delim);
         data_start++;
-    }
+        while (data_start != data_end) {
+            try {
 
-    std::cout << "DONE" << std::endl;
+                std::vector<std::string> splited = split(*data_start, '|');
+                BitcoinExchange::conversion(BitcoinExchange::validDate(trim(splited[0])), BitcoinExchange::validPrice(trim(splited[1])));
+            
+            } catch (std::exception &e) {
+                std::cout << e.what() << std::endl;
+            }
+            data_start++;
+        }
+
 
 }
 
@@ -150,5 +166,28 @@ bool    BitcoinExchange::validData(std::string data) {
     // int valid_date = 
 
     return true;
+
+}
+
+void    BitcoinExchange::getValueByDate(time_t date, float value) {
+
+    std::map<time_t, float>::iterator it = clean_db.lower_bound(date);
+
+    if (it != clean_db.end() && it->first == date) {
+        struct tm * timeinfo = localtime(&date);
+        char buffer[80];
+        strftime(buffer, sizeof(buffer), "%Y-%m-%d", timeinfo);
+        std::cout << buffer << " => " << value << " = " << (it->second * value) << std::endl; 
+        return ;
+    }
+
+    if (it != clean_db.begin()) {
+        --it;
+        struct tm * timeinfo = localtime(&date);
+        char buffer[80];
+        strftime(buffer, sizeof(buffer), "%Y-%m-%d", timeinfo);
+        std::cout << buffer << " => " << value << " = " << (it->second * value) << std::endl; 
+        return ;
+    }
 
 }
