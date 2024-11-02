@@ -101,16 +101,19 @@ bool isLeapYear(int year) {
 
 time_t    BitcoinExchange::validDate(std::string date) {
 
-    struct tm tm;
+    struct tm tm = {};
+    char* ret = strptime(date.c_str(), "%Y-%m-%d", &tm);
 
-    char *ret = strptime(date.c_str(), "%Y-%m-%d", &tm);
-        int daysInMonth[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+    if (ret == NULL) {
+        throw InvalidDate();
+    }
+    time_t result = mktime(&tm);
+    if (result == -1) {
+        throw std::logic_error("Error: invalid Date");
+    }
 
-
-    if (ret == NULL)
-        throw BitcoinExchange::InvalidDate();
-
-    if (tm.tm_mon == 1 && !isLeapYear(tm.tm_year) && tm.tm_mday > 28 ) {
+    int daysInMonth[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+    if (tm.tm_mon == 1 && !isLeapYear(tm.tm_year + 1900) && tm.tm_mday > 28) {
         std::cout << date << std::endl;
         throw std::logic_error("Error: invalid Date");
     } else if (tm.tm_mday > daysInMonth[tm.tm_mon]) {
@@ -118,7 +121,7 @@ time_t    BitcoinExchange::validDate(std::string date) {
         throw std::logic_error("Error: invalid Date");
     }
 
-    return mktime(&tm);
+    return result;
 
 }
 
@@ -146,7 +149,10 @@ void    BitcoinExchange::parseData(char delim) {
             try {
 
                 std::vector<std::string> splited = split(*data_start, '|');
-                BitcoinExchange::conversion(BitcoinExchange::validDate(trim(splited[0])), BitcoinExchange::validPrice(trim(splited[1])));
+                time_t date = BitcoinExchange::validDate(trim(splited[0]));
+                float price = BitcoinExchange::validPrice(trim(splited[1]));
+                // std::cout << "Date ==> " << date << ", Price ==> " << price << std::endl;
+                BitcoinExchange::conversion(date, price);
             
             } catch (std::exception &e) {
                 std::cout << e.what() << std::endl;
@@ -175,7 +181,7 @@ void    BitcoinExchange::getValueByDate(time_t date, float value) {
 
     if (it != clean_db.end() && it->first == date) {
         struct tm * timeinfo = localtime(&date);
-        char buffer[80];
+        char buffer[11] = {0};
         strftime(buffer, sizeof(buffer), "%Y-%m-%d", timeinfo);
         std::cout << buffer << " => " << value << " = " << (it->second * value) << std::endl; 
         return ;
@@ -184,7 +190,7 @@ void    BitcoinExchange::getValueByDate(time_t date, float value) {
     if (it != clean_db.begin()) {
         --it;
         struct tm * timeinfo = localtime(&date);
-        char buffer[80];
+        char buffer[11] = {0};
         strftime(buffer, sizeof(buffer), "%Y-%m-%d", timeinfo);
         std::cout << buffer << " => " << value << " = " << (it->second * value) << std::endl; 
         return ;
