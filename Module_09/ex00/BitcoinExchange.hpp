@@ -28,7 +28,7 @@ class BitcoinExchange {
         bool        validDBHeader(std::string header, char delim);
         void        insertData(std::string file_name);
         void        insertDb();
-        std::pair<time_t, float>        parseDb(std::string data);
+        void        parseDb(std::string data);
         void        parseData(std::string str);
 
         void        conversion(time_t date, float value);

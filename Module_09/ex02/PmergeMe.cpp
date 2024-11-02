@@ -1,13 +1,74 @@
 #include "PmergeMe.hpp"
+#include <deque>
+#include <exception>
+#include <stdexcept>
+#include <sys/_types/_clock_t.h>
 #include <utility>
 #include <vector>
+#include <sstream>
+
 
 PmergeMe::PmergeMe() {}
 PmergeMe::~PmergeMe() {}
 
-PmergeMe::PmergeMe(std::vector<int> &v) {
-    this->vec = v;
-    PmergeMe::fordJohnsonSort();
+template<typename C>
+void    PmergeMe::print(C &c) {
+
+    typename C::iterator start = c.begin();
+    typename C::iterator end = c.end();
+
+    while(start != end) {
+        std::cout << *start << " ";
+        start++;
+    }
+    std::cout << std::endl;
+
+}
+
+PmergeMe::PmergeMe(std::string &input) {
+    
+
+    try {
+
+        if (!input.size())
+            throw std::logic_error("Error: empty params");
+
+        int number;
+        std::stringstream ss(input);
+
+        while (ss >> number) {
+            if (number < 0)
+                throw std::logic_error("Error: negative number");
+            vec.push_back(number);
+            deq.push_back(number);
+        }
+        if (ss.fail() && !ss.eof())
+            throw std::logic_error("Error: invalid number");
+
+
+    } catch (std::exception &e) {
+        std::cout << e.what() << std::endl;
+        exit(1);
+    }
+
+    std::cout << "Before: ";
+    std::cout << input << std::endl;
+
+    clock_t t = clock();
+    std::vector<std::pair<int, int> > pairs_vec;
+    std::vector<int> ttt = PmergeMe::fordJohnsonSort(this->vec, pairs_vec);
+    t = clock() - t;
+
+    clock_t t1 = clock();
+    std::deque<std::pair<int, int> > pairs_deq;
+    std::deque<int> ddd = PmergeMe::fordJohnsonSort(this->deq, pairs_deq);
+    t1 = clock() - t1;
+
+    std::cout << "After: ";
+    PmergeMe::print(ttt);
+
+	std::cout << "Time to process std::vector sorting " << ((double)t / 1000) << " ms" << std::endl;
+	std::cout << "Time to process std::deque sorting " << ((double)t1 / 1000) << " ms" << std::endl;
 }
 
 void    PmergeMe::sortPairs(int &n1, int &n2) {
@@ -18,16 +79,18 @@ void    PmergeMe::sortPairs(int &n1, int &n2) {
     }
 }
 
-void recursiveSort(std::vector<std::pair<int, int> > &vec0, int left, int right) {
+template<typename T>
+void PmergeMe::recursiveSort(T &vec0, int left, int right) {
     int i = left;
     int j = right;
     std::pair<int, int> pivot = vec0[(left + right) / 2];
 
     while (i <= j) {
-        while (vec0[i].first > pivot.first) {
+        // Change to sort in ascending order
+        while (vec0[i].first < pivot.first) {
             i++;
         }
-        while (vec0[j].first < pivot.first) {
+        while (vec0[j].first > pivot.first) {
             j--;
         }
         if (i <= j) {
@@ -46,6 +109,7 @@ void recursiveSort(std::vector<std::pair<int, int> > &vec0, int left, int right)
 }
 
 
+
 std::vector<int>    PmergeMe::generateJacobsthalSeq(int n) {
 
     std::vector<int> seq;
@@ -60,20 +124,22 @@ std::vector<int>    PmergeMe::generateJacobsthalSeq(int n) {
 }
 
 bool compareByFirst(const std::pair<int, int> &a, const std::pair<int, int> &b) {
-    return a.first > b.first;
+    return a.first < b.first;
 }
 
-void recursiveSortIntegers(std::vector<int> &vec0, int left, int right) {
+template<typename T>
+void PmergeMe::recursiveSortIntegers(T &vec0, int left, int right) {
     if (left < right) {
         int i = left;
         int j = right;
         int pivot = vec0[(left + right) / 2];
 
         while (i <= j) {
-            while (vec0[i] > pivot) {
+            // Change comparison operators to sort in ascending order
+            while (vec0[i] < pivot) {
                 i++;
             }
-            while (vec0[j] < pivot) {
+            while (vec0[j] > pivot) {
                 j--;
             }
             if (i <= j) {
@@ -93,7 +159,8 @@ void recursiveSortIntegers(std::vector<int> &vec0, int left, int right) {
 }
 
 
-void PmergeMe::jacobsthalMergeInsertion(std::vector<int> &main, std::vector<int> &target) {
+template<typename C>
+void PmergeMe::jacobsthalMergeInsertion(C &main,C &target) {
     std::vector<int> seq = generateJacobsthalSeq(target.size());
 
     for (unsigned int i = 0; i < target.size(); i++) {
@@ -108,29 +175,25 @@ void PmergeMe::jacobsthalMergeInsertion(std::vector<int> &main, std::vector<int>
         recursiveSortIntegers(main, 0, main.size() - 1);
     }
 
-    for (unsigned int i = 0; i < main.size(); i++)
-        std::cout << main[i] << " ";
-    std::cout << std::endl;
 }
 
+template<typename C, typename S>
+C    PmergeMe::fordJohnsonSort(C &container, S &pairs) {
 
-void    PmergeMe::fordJohnsonSort() {
-
-    std::vector<std::pair<int, int> > pairs;
-    for (unsigned int i = 0 ; i < vec.size() ; i+=2) {
-        if (i + 1 < vec.size()) {
-            PmergeMe::sortPairs(vec[i], vec[i + 1]);
-            pairs.push_back(std::make_pair(vec[i], vec[i+1]));
+    for (unsigned int i = 0 ; i < container.size() ; i+=2) {
+        if (i + 1 < container.size()) {
+            PmergeMe::sortPairs(container[i], container[i + 1]);
+            pairs.push_back(std::make_pair(container[i], container[i+1]));
         } else {
-            pairs.push_back(std::make_pair(vec[i], -1));
+            pairs.push_back(std::make_pair(container[i], -1));
         }
     }
 
     recursiveSort(pairs, 0, pairs.size() - 1);
 
 
-    std::vector<int> main;
-    std::vector<int> target;
+    C main;
+    C target;
 
     for (unsigned int i = 0 ; i < pairs.size() ; i++) {
         main.push_back(pairs[i].first);
@@ -138,14 +201,8 @@ void    PmergeMe::fordJohnsonSort() {
             target.push_back(pairs[i].second);
     }
 
-    // for (unsigned int i = 0 ; i < main.size() ; i++) {
-    //     std::cout << main[i] << " ";
-    // }
-    // std::cout << std::endl;
-    // for (unsigned int i = 0 ; i < target.size() ; i++) {
-    //     std::cout << target[i] << " ";
-    // }
-
     PmergeMe::jacobsthalMergeInsertion(main, target);
+
+    return main;
 
 }

@@ -1,6 +1,8 @@
 #include "RPN.hpp"
 #include <cctype>
 #include <cstring>
+#include <sstream>
+#include <stdexcept>
 
 RPN::RPN() {}
 RPN::~RPN() {}
@@ -37,18 +39,26 @@ void    RPN::popAndDo(char sign) {
 
 void    RPN::parseInput(std::string input) {
 
-    for (unsigned int i = 0 ; i < input.size() ; i++) {
-        if (std::isdigit(input[i]))
-            rpn.push(input[i] - '0');
-        else if (input[i] == '+' || input[i] == '-' || input[i] == '*' || input[i] == '/') {
+    std::stringstream ss(input);
+    std::string number;
+
+    while (ss >> number) {
+
+        if (number.length() > 1)
+            throw std::logic_error("Error: Invalid Number");
+        char c = number[0];
+        if (std::isdigit(c))
+            rpn.push(c - '0');
+        else if (c == '+' || c == '-' || c == '*' || c == '/') {
             if (rpn.size() < 2)
                 throw RPNError();
-            RPN::popAndDo(input[i]);
+            RPN::popAndDo(c);
         }
-        else if (input[i] == ' ')
+        else if (c == ' ')
             continue;
         else
             throw RPN::RPNError();
+
     }
 
     if (rpn.size() != 1)

@@ -5,7 +5,7 @@
 class RPN {
 
     private:
-        std::stack<int> rpn;
+        std::stack<long long> rpn;
         void    parseInput(std::string input);
         void    popAndDo(char sign);
 

@@ -9,13 +9,22 @@ class PmergeMe {
         std::deque<int> deq;
 
         void    sortPairs(int &n1, int &n2);
-        void    fordJohnsonSort();
-        void    jacobsthalMergeInsertion(std::vector<int> &main,std::vector<int> &target);
+        template<typename C, typename S>
+        C    fordJohnsonSort(C &container, S &pairs);
+        template<typename C>
+        void    jacobsthalMergeInsertion(C &main,C &target);
         std::vector<int>    generateJacobsthalSeq(int n);
+        template<typename T>
+        void recursiveSort(T &vec0, int left, int right);
+        template<typename T>
+        void recursiveSortIntegers(T &vec0, int left, int right);
+        void    parse();
+        template<typename C>
+        void    print(C &c);
 
     public:
         PmergeMe();
-        PmergeMe(std::vector<int> &v);
+        PmergeMe(std::string &input);
         ~PmergeMe();
         PmergeMe(const PmergeMe &merge);
         PmergeMe &operator=(const PmergeMe &merge);

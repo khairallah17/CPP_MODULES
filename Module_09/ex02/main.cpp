@@ -1,4 +1,5 @@
 #include "PmergeMe.hpp"
+#include <deque>
 #include <exception>
 #include <sstream>
 #include <stdexcept>
@@ -12,20 +13,16 @@ int main(int ac, char **av) {
             return 1;
         }
 
-        std::vector<int> vec;
 
-        for (int i = 1 ; av[i] ; i++) {
-            std::stringstream ss(av[i]);
-            int number;
-            ss >> number;
-            
-            if (number < 0 || ss.fail() || !ss.eof())
-                throw std::logic_error("Error: invalid number");
-
-            vec.push_back(number);
+        std::string input;
+        int i = 1;
+        for (; i < ac - 1 ; i++) {
+            input += av[i];
+            input += " ";
         }
+        input += av[i];
 
-        PmergeMe PmergeMe(vec);
+        PmergeMe PmergeMe(input);
         
     } catch (std::exception &e) {
         std::cout << e.what() << std::endl;

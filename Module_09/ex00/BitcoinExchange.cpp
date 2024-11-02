@@ -55,7 +55,7 @@ void BitcoinExchange::insertDb() {
                 header = 1;
                 BitcoinExchange::validDBHeader(data_value, ',');
             } else
-                clean_db.insert(std::pair<time_t, float>(parseDb(data_value)));
+                parseDb(data_value);
         } catch (std::exception &e) {
             std::cout << e.what() << std::endl;
             exit(0);
@@ -64,13 +64,13 @@ void BitcoinExchange::insertDb() {
 
 }
 
-std::pair<time_t, float>    BitcoinExchange::parseDb(std::string str) {
+void    BitcoinExchange::parseDb(std::string str) {
 
     std::list<std::string> splited = split(str, ',');
     time_t date = BitcoinExchange::validDate(trim(splited.front()));
     float price = std::atof(trim(splited.back()).c_str());
     
-    return std::pair<time_t, float>(date, price);
+    clean_db[date] = price;
 
 }
 
