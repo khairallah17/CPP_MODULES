@@ -1,13 +1,18 @@
 #include "BitcoinExchange.hpp"
+#include <cstdlib>
+#include <list>
+#include <sstream>
+#include <stdexcept>
 #include <sys/_types/_time_t.h>
+#include <utility>
 
 typedef std::stringstream ss;
 
-std::vector<std::string> split(std::string str, char delim) {
+std::list<std::string> split(std::string str, char delim) {
 
     ss res(str);
     std::string word;
-    std::vector<std::string>splited;
+    std::list<std::string> splited;
 
     while (!res.eof()) {
         getline(res, word, delim);
@@ -30,11 +35,43 @@ std::string trim(const std::string& str) {
 }
 
 BitcoinExchange::BitcoinExchange(std::string file_name) {
-    BitcoinExchange::insertData("data.csv");
-    BitcoinExchange::fillDb();
-    db.clear();
+    BitcoinExchange::insertDb();
     BitcoinExchange::insertData(file_name);
-    BitcoinExchange::parseData('|');
+}
+
+void BitcoinExchange::insertDb() {
+
+    std::ifstream file_data("data.csv");
+
+    if (!file_data)
+        throw std::logic_error("Error: opening file");
+
+    std::string data_value;
+    int header = 0;
+
+    while (std::getline(file_data, data_value)) {
+        try {
+            if (header == 0) {
+                header = 1;
+                BitcoinExchange::validDBHeader(data_value, ',');
+            } else
+                clean_db.insert(std::pair<time_t, float>(parseDb(data_value)));
+        } catch (std::exception &e) {
+            std::cout << e.what() << std::endl;
+            exit(0);
+        }
+    }
+
+}
+
+std::pair<time_t, float>    BitcoinExchange::parseDb(std::string str) {
+
+    std::list<std::string> splited = split(str, ',');
+    time_t date = BitcoinExchange::validDate(trim(splited.front()));
+    float price = std::atof(trim(splited.back()).c_str());
+    
+    return std::pair<time_t, float>(date, price);
+
 }
 
 BitcoinExchange::~BitcoinExchange() {}
@@ -57,40 +94,51 @@ const   char*   BitcoinExchange::PriceTooLow::what() const throw() {
     return "Error: not a positive number.";
 }
 
+const   char*   BitcoinExchange::InvalidFormat::what() const throw() {
+    return "Error: invalid format.";
+}
+
 bool    BitcoinExchange::validHeader(std::string header, char delim) {
 
-    std::vector<std::string> splited_header = split(header, delim);
+    std::list<std::string> splited_header = split(header, delim);
 
-    if (trim(splited_header[0]) != "date" || trim(splited_header[1]) != "value") {
-        std::cout << splited_header[0] << "<==>" << splited_header[1] << std::endl;
+    std::string value_0 = splited_header.front();
+    std::string value_1 = splited_header.back();
+
+    if (trim(value_0) != "date" || trim(value_1) != "value")
         throw std::logic_error("Error: invalid header");
-    }
 
     return true;
 }
 
-void    BitcoinExchange::fillDb() {
+bool    BitcoinExchange::validDBHeader(std::string header, char delim) {
 
-    std::vector<std::string>::iterator data_begin = db.begin();
-    std::vector<std::string>::iterator data_end = db.end();
+    std::list<std::string> splited_header = split(header, delim);
 
-    data_begin++;
+    std::string value_0 = splited_header.front();
+    std::string value_1 = splited_header.back();
 
-    while (data_begin != data_end) {
-        std::vector<std::string>splited = split(*data_begin, ',');
-        clean_db.insert(std::pair<time_t, float>(BitcoinExchange::validDate(trim(splited[0])), std::atof(splited[1].c_str())));
-        data_begin++;
-    }
+    if (trim(value_0) != "date" || trim(value_1) != "exchange_rate")
+        throw std::logic_error("Error: invalid header");
 
+    return true;
 }
 
 void    BitcoinExchange::insertData(std::string file_name) {
 
     std::ifstream file_data(file_name);
+    if (!file_data)
+        throw std::logic_error("Error: unable to open file");
     std::string data_value;
+    int header = 0;
 
     while (std::getline(file_data, data_value)) {
-        db.push_back(data_value);
+        if (header == 0) {
+            BitcoinExchange::validHeader(data_value, '|');
+            header = 1;
+        } else {
+            BitcoinExchange::parseData(data_value);
+        }
     }
 
 }
@@ -104,9 +152,9 @@ time_t    BitcoinExchange::validDate(std::string date) {
     struct tm tm = {};
     char* ret = strptime(date.c_str(), "%Y-%m-%d", &tm);
 
-    if (ret == NULL) {
+    if (ret == NULL)
         throw InvalidDate();
-    }
+    
     time_t result = mktime(&tm);
     if (result == -1) {
         throw std::logic_error("Error: invalid Date");
@@ -127,7 +175,12 @@ time_t    BitcoinExchange::validDate(std::string date) {
 
 float    BitcoinExchange::validPrice(std::string price) {
 
-    float prc = std::atof(price.c_str());
+    std::stringstream ss(price);
+
+    float prc;
+    ss >> prc;
+    if (ss.fail() || !ss.eof())
+        throw BitcoinExchange::InvalidFormat();
 
     if (prc < 0)
         throw BitcoinExchange::PriceTooLow();
@@ -137,41 +190,19 @@ float    BitcoinExchange::validPrice(std::string price) {
     return prc;
 }
 
-void    BitcoinExchange::parseData(char delim) {
+void    BitcoinExchange::parseData(std::string str) {
 
+        try {
 
-        std::vector<std::string>::iterator data_start = db.begin();
-        std::vector<std::string>::iterator data_end = db.end();
-
-        BitcoinExchange::validHeader(*data_start, delim);
-        data_start++;
-        while (data_start != data_end) {
-            try {
-
-                std::vector<std::string> splited = split(*data_start, '|');
-                time_t date = BitcoinExchange::validDate(trim(splited[0]));
-                float price = BitcoinExchange::validPrice(trim(splited[1]));
-                // std::cout << "Date ==> " << date << ", Price ==> " << price << std::endl;
-                BitcoinExchange::conversion(date, price);
-            
-            } catch (std::exception &e) {
-                std::cout << e.what() << std::endl;
-            }
-            data_start++;
+            std::list<std::string> splited = split(str, '|');
+            time_t date = BitcoinExchange::validDate(trim(splited.front()));
+            float price = BitcoinExchange::validPrice(trim(splited.back()));
+            BitcoinExchange::conversion(date, price);
+        
+        } catch (std::exception &e) {
+            std::cout << e.what() << std::endl;
         }
 
-
-}
-
-bool    BitcoinExchange::validData(std::string data) {
-
-    if (data.empty())
-        return false;
-
-    std::vector<std::string> splited_data = split(data, ',');
-    // int valid_date = 
-
-    return true;
 
 }
 
